@@ -3,7 +3,8 @@
 const fs = require("fs");
 const path = require("path");
 
-const filozoflar = require("./veri-filozoflar.js").map(x => ({ ...x, t: "f" }));
+const soy = require("./veri-soy.js");
+const filozoflar = require("./veri-filozoflar.js").map(x => ({ ...x, ...(soy[x.id] || {}), t: "f" }));
 const akimlar = require("./veri-akimlar.js").map(x => ({ ...x, t: "a" }));
 const kavramlar = require("./veri-kavramlar.js").map(x => ({ ...x, t: "k" }));
 const baglarMetni = require("./veri-baglar.js");
@@ -19,6 +20,19 @@ for (const v of varliklar) {
   idler.set(v.id, v);
   if (!DONEMLER.includes(v.e)) hatalar.push(`Bilinmeyen dönem: ${v.id} → ${v.e}`);
   if (!v.n || !v.s) hatalar.push(`Eksik ad/özet: ${v.id}`);
+}
+
+// Soy ağacı alanları: her filozofta yıl (y), yenilik (yn) ve en fazla 3 cümlelik temel düşünce (o).
+const cumleSay = (m) => (m.match(/[^.!?]+[.!?]+(?=\s|$)/g) || []).length;
+for (const id of Object.keys(soy)) {
+  if (!filozoflar.some(f => f.id === id)) hatalar.push(`veri-soy.js bilinmeyen filozof: ${id}`);
+}
+for (const f of filozoflar) {
+  if (!soy[f.id]) { hatalar.push(`veri-soy.js kaydı eksik: ${f.id}`); continue; }
+  if (!Number.isInteger(f.y)) hatalar.push(`Yıl (y) tam sayı olmalı: ${f.id}`);
+  if (!f.yn) hatalar.push(`Yenilik (yn) eksik: ${f.id}`);
+  const n = f.o ? cumleSay(f.o) : 0;
+  if (n < 1 || n > 3) hatalar.push(`Temel düşünce (o) 1-3 cümle olmalı, ${n} cümle: ${f.id}`);
 }
 
 const baglar = [];
