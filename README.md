@@ -3,7 +3,7 @@
 Felsefe tarihindeki filozofları, akımları ve kavramları anahtar kelimeyle arayıp özetini ve aralarındaki bağları (hoca/öğrenci, etkileme, eleştiri, temsil, geliştirme, köken, karşıtlık) harita üzerinde gösteren Türkçe uygulama. Telefona kurulabilir (PWA) ve internet olmadan da çalışır.
 
 ## Soy ağacı
-Üstteki **Soy ağacı** sekmesi filozofları doğum yılına göre dikey bir zaman ekseninde dizer. Her kartta kimden etkilendiği, getirdiği yeni düşünce, en fazla üç cümlelik temel düşüncesi ve kimleri etkilediği yazar. Soldaki yaylar etki ve hoca-öğrenci bağlarıdır. Bir düşünüre dokununca öncülleri ve ardılları 1, 2 ya da tüm kuşaklar boyunca vurgulanır; "Yalnızca soy hattı" ile geri kalanlar gizlenir. Doğrudan bağlantı: `#soy-kant`.
+Üstteki **Soy ağacı** sekmesi iki görünüm sunar. **Ağaç** görünümü filozofları zaman sırasıyla satırlara dizip etki ve hoca-öğrenci bağlarını çizgilerle gösteren bir diyagramdır; bir düğüme dokununca öncüller turuncu, ardıllar yeşil vurgulanır ve temel düşünce bir panelde açılır (−/+ ile yakınlaştırılır). **Kartlar** görünümü filozofları doğum yılına göre dikey bir zaman ekseninde dizer. Her kartta kimden etkilendiği, getirdiği yeni düşünce, en fazla üç cümlelik temel düşüncesi ve kimleri etkilediği yazar. Soldaki yaylar etki ve hoca-öğrenci bağlarıdır. Bir düşünüre dokununca öncülleri ve ardılları 1, 2 ya da tüm kuşaklar boyunca vurgulanır; "Yalnızca soy hattı" ile geri kalanlar gizlenir. Doğrudan bağlantı: `#soy-kant`.
 
 ## Telefona kurma
 - **Android (Chrome):** Siteyi açın, menüden "Uygulamayı yükle" ya da "Ana ekrana ekle"yi seçin.
