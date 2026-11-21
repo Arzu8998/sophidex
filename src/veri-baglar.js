@@ -668,4 +668,41 @@ foucault etkiledi butler
 derrida etkiledi butler
 butler gelistirdi performatiflik
 performatiflik ilgili ikinci-cins
+
+# Soy ağacı için eklenen etki bağları
+pisagor etkiledi parmenides
+pisagor etkiledi empedokles
+parmenides etkiledi anaksagoras
+herakleitos etkiledi protagoras
+empedokles etkiledi gorgias
+zenon-elea etkiledi gorgias
+sokrates etkiledi zenon-kition
+demokritos etkiledi pyrrhon
+pyrrhon etkiledi sextus-empiricus
+zenon-kition etkiledi seneca
+zenon-kition etkiledi epiktetos
+aristoteles etkiledi boethius
+plotinos etkiledi boethius
+augustinus etkiledi anselmus
+boethius etkiledi abelard
+aristoteles etkiledi ockham
+ibn-sina etkiledi gazali
+platon etkiledi suhreverdi
+seneca etkiledi montaigne
+plotinos etkiledi bruno
+montaigne etkiledi pascal
+augustinus etkiledi pascal
+locke etkiledi wollstonecraft
+platon etkiledi rousseau
+bacon etkiledi comte
+sokrates etkiledi kierkegaard
+kant etkiledi peirce
+leibniz etkiledi frege
+mill etkiledi russell
+wittgenstein etkiledi carnap
+kant etkiledi popper
+carnap etkiledi quine
+russell etkiledi quine
+wittgenstein etkiledi kuhn
+augustinus etkiledi arendt
 `;

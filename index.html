@@ -159,6 +159,88 @@ svg.graph .edge { fill: none; }
 .topic-list button:hover { border-color: var(--muted); }
 .topic-list button:focus-visible { outline: 2px solid var(--filozof); }
 .topic-list .r-snip { -webkit-line-clamp: 3; }
+/* Görünüm sekmeleri */
+.views { display: flex; gap: 4px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.views a { font-size: .86rem; font-weight: 500; color: var(--muted); text-decoration: none; padding: 5px 14px; border-radius: 999px; }
+.views a[aria-current="page"] { background: var(--ink); color: var(--bg); }
+.views a:focus-visible { outline: 2px solid var(--filozof); outline-offset: 1px; }
+.soy-modu .layout { grid-template-columns: minmax(0, 1fr); }
+.soy-modu .side { display: none; }
+
+/* Ayrıntı sayfasında temel düşünce */
+.core { margin-top: 18px; padding: 14px 16px; border-left: 3px solid var(--filozof); background: var(--bg); border-radius: 0 10px 10px 0; max-width: 72ch; }
+.core h3 { margin: 0 0 4px; }
+.core p { margin: 0; }
+.core .yeni { margin-top: 8px; font-size: .92rem; }
+.core a { display: inline-block; margin-top: 10px; font-size: .88rem; color: var(--filozof); font-weight: 500; }
+
+/* Soy ağacı: dikey zaman ekseni, solda etki yayları */
+.soy-card h2 { font-family: var(--f-display); font-weight: 600; font-size: 1.7rem; margin: 0 0 6px; }
+.soy-card > p { color: var(--muted); margin: 0 0 14px; max-width: 72ch; }
+.soy-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.soy-bar select { font: inherit; font-size: .85rem; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); max-width: 100%; }
+.soy-bar .chip[disabled] { opacity: .45; cursor: default; }
+@media (max-width: 600px) { .soy-bar select { flex: 1 1 40%; min-width: 0; } }
+/* Seçili düşünür satırı kaydırırken üstte kalır. */
+.soy-durum {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2; background: var(--surface);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: .86rem; color: var(--muted);
+  margin: 10px calc(-1 * clamp(16px, 3vw, 32px)) 0; padding: 8px clamp(16px, 3vw, 32px); border-bottom: 1px solid var(--line);
+}
+.soy-durum b { color: var(--ink); font-family: var(--f-display); font-size: 1.02rem; }
+.soy-durum .ust { color: var(--akim); font-weight: 600; } .soy-durum .alt { color: var(--kavram); font-weight: 600; }
+.soy-durum button { margin-left: auto; }
+.soy-durum:empty { display: none; }
+.soy-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .78rem; color: var(--muted); margin: 10px 0 0; }
+.soy-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.soy-legend i { display: inline-block; width: 18px; height: 0; border-top: 2px solid var(--filozof); }
+.soy-legend i.h { border-top: 2.5px solid var(--ink); }
+.soy-legend i.a { border-top: 2px solid var(--akim); }
+.soy-legend i.t { border-top: 2px solid var(--kavram); }
+.soy { position: relative; --g: 58px; margin-top: 6px; }
+@media (max-width: 600px) { .soy { --g: 34px; } }
+.soy svg.yaylar { position: absolute; left: 0; top: 0; width: var(--g); overflow: visible; pointer-events: none; }
+.yay { fill: none; stroke: var(--muted); stroke-width: 1; opacity: .28; }
+.yay.h { stroke-width: 1.6; }
+.soy.odak .yay { opacity: .08; }
+.soy.odak .yay.ust { stroke: var(--akim); opacity: .9; stroke-width: 1.6; }
+.soy.odak .yay.alt { stroke: var(--kavram); opacity: .9; stroke-width: 1.6; }
+.soy.odak .yay.dog { stroke-width: 2.6; opacity: 1; }
+.yaylar circle { fill: var(--surface); stroke: var(--filozof); stroke-width: 2; }
+.soy.odak .yaylar circle { opacity: .35; }
+.soy.odak .yaylar circle.in { opacity: 1; }
+.yaylar circle.sec { fill: var(--filozof); }
+.sk-liste { list-style: none; margin: 0; padding: 0 0 0 calc(var(--g) + 6px); }
+.sk-yy { font-family: var(--f-mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 18px 0 6px; }
+.sk { padding: 12px 14px; margin: 0 0 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); cursor: pointer; scroll-margin-top: 64px; transition: opacity .15s; }
+.sk:hover { border-color: var(--muted); }
+.soy.odak .sk { opacity: .42; }
+.soy.odak .sk.in { opacity: 1; }
+.soy.odak.yalniz .sk:not(.in), .soy.odak.yalniz .sk-yy.bos { display: none; }
+.sk.ust { border-color: var(--akim); }
+.sk.alt { border-color: var(--kavram); }
+.sk.sec { border-color: var(--filozof); box-shadow: 0 0 0 2px var(--filozof); background: var(--surface); }
+.sk-ust { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+.sk-ad { all: unset; cursor: pointer; font-family: var(--f-display); font-weight: 600; font-size: 1.15rem; line-height: 1.25; }
+.sk-ad:focus-visible { outline: 2px solid var(--filozof); outline-offset: 2px; border-radius: 4px; }
+.sk-meta { font-family: var(--f-mono); font-size: .74rem; color: var(--muted); }
+.sk-rol { font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+.sk.ust .sk-rol { color: var(--akim); } .sk.alt .sk-rol { color: var(--kavram); } .sk.sec .sk-rol { color: var(--filozof); }
+.sk-satir { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 2px 10px; margin-top: 6px; font-size: .88rem; align-items: baseline; }
+@media (max-width: 600px) { .sk-satir { grid-template-columns: minmax(0, 1fr); } .sk { padding: 10px 12px; scroll-margin-top: 84px; } }
+.sk-et { font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.sk-yeni { font-weight: 500; }
+.sk-oz { margin: 8px 0 0; font-family: var(--f-display); font-size: 1.02rem; line-height: 1.5; max-width: 75ch; }
+.soy.ozsuz .sk-oz { display: none; }
+.sk-cips { display: flex; flex-wrap: wrap; gap: 4px; }
+.sk-cips .yok { color: var(--muted); font-style: italic; }
+.sk-git { font: inherit; font-size: .8rem; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 1px 9px; border-radius: 999px; cursor: pointer; }
+.sk-git:hover { border-color: var(--muted); }
+.sk-git:focus-visible { outline: 2px solid var(--filozof); outline-offset: 1px; }
+.sk-git.h { border-color: var(--ink); font-weight: 600; }
+.sk-git.c { border-style: dashed; border-color: var(--catisma); }
+.sk-detay { all: unset; cursor: pointer; display: inline-block; margin-top: 8px; font-size: .84rem; color: var(--filozof); font-weight: 500; }
+.sk-detay:focus-visible { outline: 2px solid var(--filozof); outline-offset: 2px; border-radius: 4px; }
 footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
 @media (prefers-reduced-motion: no-preference) { .card { animation: in .25s ease-out; } @keyframes in { from { transform: translateY(4px); } to { transform: none; } } }
 </style>
@@ -171,6 +253,10 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
       <h1 id="home" tabindex="0" role="link" aria-label="Sophidex ana sayfa">Sophidex</h1>
       <p>Thales'ten Butler'a fikirler, akımlar ve aralarındaki bağlar</p>
     </div>
+    <nav class="views" aria-label="Görünüm">
+      <a href="#" id="v-atlas" aria-current="page">Atlas</a>
+      <a href="#soy" id="v-soy">Soy ağacı</a>
+    </nav>
     <div class="stats" id="stats">Yükleniyor…</div>
   </header>
 
@@ -286,7 +372,7 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
       v._al = (v.al || []).map(norm);
       v._k = (v.k || []).map(norm);
       v._w = norm((v.w || []).join(" | "));
-      v._i = norm((v.i || []).join(" | "));
+      v._i = norm((v.i || []).concat(v.o ? [v.o] : [], v.yn ? [v.yn] : []).join(" | "));
       v._s = norm(v.s);
       LISTE.push(v);
     });
@@ -459,6 +545,9 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
       (v.al && v.al.length ? '<p class="aliases">Diğer adları: ' + esc(v.al.join(", ")) + "</p>" : "") +
       '<div class="facts">' + facts.join("") + "</div>" +
       '<p class="summary">' + hl(v.s) + "</p>" +
+      (v.o ? '<div class="core"><h3 class="sec">Temel düşünce</h3><p>' + hl(v.o) + "</p>" +
+        (v.yn ? '<p class="yeni"><b>Getirdiği yenilik:</b> ' + hl(v.yn) + "</p>" : "") +
+        '<a href="#soy-' + id + '">Soy ağacında gör: kimden etkilendi, kimi etkiledi →</a></div>' : "") +
       '<div class="cols"><section><h3 class="sec">' + (v.t === "k" ? "Ana hatlar" : "Ana fikirler") + '</h3><ul class="ideas">' + (v.i || []).map(function (x) { return "<li>" + hl(x) + "</li>"; }).join("") + "</ul>" +
       (v.w && v.w.length ? '<h3 class="sec" style="margin-top:22px">Başlıca eserler</h3><ul class="works">' + v.w.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "") +
       (v.k && v.k.length ? '<h3 class="sec" style="margin-top:22px">Anahtar kelimeler</h3><div class="filters">' + v.k.map(function (x) { return '<button class="chip" data-q="' + esc(x) + '">' + esc(x) + "</button>"; }).join("") + "</div>" : "") +
@@ -501,9 +590,211 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
       '<div class="eras">' + html + "</div></article>";
   }
 
+  // ---------- Soy ağacı ----------
+  // Filozoflar doğum yılına göre dikey bir zaman ekseninde dizilir; soldaki yaylar "hoca" ve "etkiledi" bağlarıdır.
+  // Bir düşünür seçilince öncülleri (kimden etkilendiği) ve ardılları (kimi etkilediği) kuşak kuşak vurgulanır.
+  var SOY_R = { hoca: 1, etkiledi: 1 };
+  var soy = { secili: null, yalniz: false, oz: true, donem: "", derin: 2, kok: null, ro: null };
+
+  function yilYaz(y) { return y < 0 ? "MÖ " + (-y) : String(y); }
+  function yuzyil(y) { return y < 0 ? "MÖ " + Math.ceil(-y / 100) + ". yüzyıl" : (Math.floor((y - 1) / 100) + 1) + ". yüzyıl"; }
+  function soyBag(id, yon) {
+    return KOMSU[id].filter(function (k) { return k.yon === yon && SOY_R[k.r] && V[k.id].t === "f"; });
+  }
+  function benzersiz(xs) { var g = {}; return xs.filter(function (k) { if (g[k.id]) return false; g[k.id] = 1; return true; }); }
+  // Seçilen düşünürden yukarı (öncüller) ve aşağı (ardıllar) kuşak sayısıyla birlikte yürür.
+  function soyHatti(id) {
+    function yuru(yon) {
+      var derin = {}, sira = [id]; derin[id] = 0;
+      while (sira.length) {
+        var x = sira.shift();
+        if (derin[x] >= soy.derin) continue;
+        soyBag(x, yon).forEach(function (k) { if (!(k.id in derin)) { derin[k.id] = derin[x] + 1; sira.push(k.id); } });
+      }
+      delete derin[id];
+      return derin;
+    }
+    return { ust: yuru("in"), alt: yuru("out") };
+  }
+  function soyCips(ks, sinif) {
+    if (!ks.length) return "";
+    ks.sort(function (a, b) { return V[a.id].y - V[b.id].y; });
+    return ks.map(function (k) {
+      var c = sinif || (k.r === "hoca" ? "h" : "");
+      return '<button class="sk-git' + (c ? " " + c : "") + '" data-sk-git="' + k.id + '"' + (k.r === "hoca" ? ' title="Hocası / öğrencisi"' : "") + ">" + esc(V[k.id].n) + "</button>";
+    }).join("");
+  }
+  function soyKart(v) {
+    var once = benzersiz(soyBag(v.id, "in")), sonra = benzersiz(soyBag(v.id, "out"));
+    var elestiri = KOMSU[v.id].filter(function (k) { return k.yon === "out" && k.r === "elestirdi" && V[k.id].t === "f"; });
+    var yeniKavram = KOMSU[v.id].filter(function (k) { return k.yon === "out" && (k.r === "gelistirdi" || k.r === "kurdu"); });
+    return '<li class="sk" id="sk-' + v.id + '" data-sk="' + v.id + '">' +
+      '<div class="sk-ust"><button class="sk-ad" data-sk-sec="' + v.id + '" aria-pressed="false">' + esc(v.n) + "</button>" +
+      '<span class="sk-meta">' + esc(v.d || yilYaz(v.y)) + (v.r ? " · " + esc(v.r) : "") + "</span><span class=\"sk-rol\"></span></div>" +
+      '<div class="sk-satir"><span class="sk-et">Etkilendiği</span><span class="sk-cips">' +
+        (soyCips(once) || '<span class="yok">Kayıtlı öncülü yok; bu hattın başlangıcı</span>') + "</span></div>" +
+      '<div class="sk-satir"><span class="sk-et">Yeni düşünce</span><span class="sk-yeni">' + esc(v.yn || "") +
+        (yeniKavram.length ? ' <span class="sk-meta">(' + yeniKavram.map(function (k) { return esc(V[k.id].n); }).join(", ") + ")</span>" : "") + "</span></div>" +
+      (v.o ? '<p class="sk-oz">' + esc(v.o) + "</p>" : "") +
+      (sonra.length ? '<div class="sk-satir"><span class="sk-et">Etkiledikleri</span><span class="sk-cips">' + soyCips(sonra) + "</span></div>" : "") +
+      (elestiri.length ? '<div class="sk-satir"><span class="sk-et">Eleştirdiği</span><span class="sk-cips">' + soyCips(elestiri, "c") + "</span></div>" : "") +
+      '<button class="sk-detay" data-id="' + v.id + '">Ayrıntılı özet ve bağ haritası →</button>' +
+      "</li>";
+  }
+
+  function soyCiz() {
+    var fs = LISTE.filter(function (v) { return v.t === "f" && typeof v.y === "number"; });
+    fs.sort(function (a, b) { return a.y - b.y || a.n.localeCompare(b.n, "tr"); });
+    var secenek = fs.slice().sort(function (a, b) { return a.n.localeCompare(b.n, "tr"); })
+      .map(function (v) { return '<option value="' + v.id + '">' + esc(v.n) + "</option>"; }).join("");
+    $("main").innerHTML =
+      '<article class="card soy-card"><h2>Düşünce soy ağacı</h2>' +
+      "<p>Filozoflar doğum yıllarına göre yukarıdan aşağı dizili. Her kartta kimden etkilendiği, getirdiği yeni düşünce ve temel düşüncesi en fazla üç cümleyle yazılı. Soldaki yaylar etki ve hoca-öğrenci bağlarıdır. Bir düşünüre dokununca öncülleri ve ardılları kuşak kuşak vurgulanır.</p>" +
+      '<div class="soy-bar">' +
+        '<select id="soy-sec" aria-label="Düşünür seç"><option value="">Düşünür seç…</option>' + secenek + "</select>" +
+        '<select id="soy-donem" aria-label="Dönem"><option value="">Tüm dönemler</option>' + DONEMLER.map(function (d) { return '<option value="' + d[0] + '">' + esc(d[1]) + "</option>"; }).join("") + "</select>" +
+        '<select id="soy-derin" aria-label="Kaç kuşak vurgulansın"><option value="1">1 kuşak</option><option value="2">2 kuşak</option><option value="99">Tüm kuşaklar</option></select>' +
+        '<button class="chip" id="soy-yalniz" aria-pressed="false" disabled>Yalnızca soy hattı</button>' +
+        '<button class="chip" id="soy-oz" aria-pressed="true">Temel düşünceler</button>' +
+      "</div>" +
+      '<div class="soy-legend"><span><i></i>Etkiledi</span><span><i class="h"></i>Hocasıydı</span><span><i class="a"></i>Seçilenin öncülleri</span><span><i class="t"></i>Seçilenin ardılları</span></div>' +
+      '<div class="soy-durum" id="soy-durum" aria-live="polite"></div>' +
+      '<div class="soy" id="soy"><svg class="yaylar" id="yaylar" aria-hidden="true"></svg><ol class="sk-liste" id="sk-liste"></ol></div>' +
+      "</article>";
+    soy.kok = $("soy");
+    soy.fs = fs;
+    $("soy-donem").value = soy.donem;
+    $("soy-derin").value = String(soy.derin);
+    $("soy-derin").addEventListener("change", function (e) { soy.derin = +e.target.value; soyIsaretle(); });
+    $("soy-oz").setAttribute("aria-pressed", soy.oz ? "true" : "false");
+    soy.kok.classList.toggle("ozsuz", !soy.oz);
+    soyListe();
+    $("soy-sec").addEventListener("change", function (e) { if (e.target.value) soySec(e.target.value, true); else soySec(null); });
+    $("soy-donem").addEventListener("change", function (e) { soy.donem = e.target.value; soyListe(); soyIsaretle(); });
+    $("soy-yalniz").addEventListener("click", function () {
+      soy.yalniz = !soy.yalniz; this.setAttribute("aria-pressed", soy.yalniz ? "true" : "false");
+      soy.kok.classList.toggle("yalniz", soy.yalniz); yaylariCiz();
+      if (soy.secili) kartaGit(soy.secili);
+    });
+    $("soy-oz").addEventListener("click", function () {
+      soy.oz = !soy.oz; this.setAttribute("aria-pressed", soy.oz ? "true" : "false");
+      soy.kok.classList.toggle("ozsuz", !soy.oz); yaylariCiz();
+    });
+    if (soy.ro) soy.ro.disconnect();
+    if (window.ResizeObserver) { soy.ro = new ResizeObserver(function () { yaylariCiz(); }); soy.ro.observe($("sk-liste")); }
+  }
+  function soyListe() {
+    var html = "", son = null;
+    soy.fs.forEach(function (v) {
+      if (soy.donem && v.e !== soy.donem) return;
+      var yy = yuzyil(v.y);
+      if (yy !== son) { html += '<li class="sk-yy" aria-hidden="true">' + yy + "</li>"; son = yy; }
+      html += soyKart(v);
+    });
+    $("sk-liste").innerHTML = html;
+  }
+  // Seçime göre kartlara sınıf verir ve yayları yeniden çizer.
+  function soyIsaretle() {
+    var hat = soy.secili ? soyHatti(soy.secili) : { ust: {}, alt: {} };
+    soy.hat = hat;
+    soy.kok.classList.toggle("odak", !!soy.secili);
+    soy.kok.classList.toggle("yalniz", !!soy.secili && soy.yalniz);
+    $("soy-yalniz").disabled = !soy.secili;
+    $("soy-sec").value = soy.secili || "";
+    Array.prototype.forEach.call(soy.kok.querySelectorAll(".sk"), function (li) {
+      var id = li.getAttribute("data-sk"), rol = "", sinif = "";
+      if (id === soy.secili) { sinif = "sec"; rol = "Seçili"; }
+      else if (id in hat.ust) { sinif = "ust"; rol = hat.ust[id] === 1 ? "Doğrudan öncül" : hat.ust[id] + ". kuşak öncül"; }
+      else if (id in hat.alt) { sinif = "alt"; rol = hat.alt[id] === 1 ? "Doğrudan ardıl" : hat.alt[id] + ". kuşak ardıl"; }
+      li.className = "sk" + (sinif ? " " + sinif + " in" : "");
+      li.querySelector(".sk-rol").textContent = rol;
+      li.querySelector(".sk-ad").setAttribute("aria-pressed", id === soy.secili ? "true" : "false");
+    });
+    // Yalnızca soy hattı gösterilirken boş kalan yüzyıl başlıklarını gizle.
+    var baslik = null;
+    Array.prototype.forEach.call(soy.kok.querySelectorAll(".sk-liste > li"), function (li) {
+      if (li.classList.contains("sk-yy")) { baslik = li; li.classList.add("bos"); }
+      else if (baslik && li.classList.contains("in")) baslik.classList.remove("bos");
+    });
+    var d = $("soy-durum");
+    if (soy.secili) {
+      var nu = Object.keys(hat.ust).length, na = Object.keys(hat.alt).length;
+      var du = soyBag(soy.secili, "in").length, da = soyBag(soy.secili, "out").length;
+      var kus = soy.derin > 50 ? "tüm kuşaklarda" : soy.derin + " kuşakta";
+      var ek = function (n, dog) { return n > dog ? ", " + kus + " " + n : ""; };
+      d.innerHTML = "<b>" + esc(V[soy.secili].n) + "</b>" +
+        '<span><span class="ust">' + du + " doğrudan öncül</span>" + ek(nu, du) + '</span><span><span class="alt">' + da + " doğrudan ardıl</span>" + ek(na, da) + "</span>" +
+        '<button class="sk-git" id="soy-temizle" aria-label="Seçimi kaldır">Seçimi kaldır ×</button>';
+      $("soy-temizle").addEventListener("click", function () { soySec(null); });
+    } else d.innerHTML = "";
+    yaylariCiz();
+  }
+  function soySec(id, kaydir) {
+    soy.secili = id && V[id] ? id : null;
+    var h = soy.secili ? "#soy-" + soy.secili : "#soy";
+    if (location.hash !== h) history.replaceState(null, "", location.pathname + location.search + h);
+    document.title = soy.secili ? V[soy.secili].n + " · Soy ağacı · Sophidex" : "Soy ağacı · Sophidex";
+    if (soy.secili && soy.donem && V[soy.secili].e !== soy.donem) { soy.donem = ""; $("soy-donem").value = ""; soyListe(); }
+    soyIsaretle();
+    if (soy.secili && kaydir) kartaGit(soy.secili);
+  }
+  function kartaGit(id) {
+    var li = $("sk-" + id);
+    if (li) li.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  }
+  function yaylariCiz() {
+    var svg = $("yaylar"); if (!svg || !soy.kok) return;
+    var g = soy.kok.querySelector(".sk-liste");
+    var G = parseFloat(getComputedStyle(soy.kok).getPropertyValue("--g")) || 58;
+    var H = g.offsetHeight, x0 = G - 6, poz = {};
+    Array.prototype.forEach.call(g.querySelectorAll(".sk"), function (li) {
+      if (li.offsetParent === null) return;
+      poz[li.getAttribute("data-sk")] = li.offsetTop + 22;
+    });
+    // Öncül hattındaki yaylar "ust", ardıl hattındakiler "alt", seçilene doğrudan bağlananlar ayrıca "dog" sınıfı alır.
+    var hat = soy.hat || { ust: {}, alt: {} }, sec = soy.secili;
+    var normal = "", vurgu = "", olcek = Math.log(1 + H / 80) || 1;
+    Object.keys(poz).forEach(function (a) {
+      soyBag(a, "out").forEach(function (k) {
+        var b = k.id; if (!(b in poz) || a === b) return;
+        var y1 = poz[a], y2 = poz[b], dy = Math.abs(y2 - y1);
+        var w = (G - 10) * Math.min(1, Math.log(1 + dy / 80) / olcek) + 4, c = x0 - w * 4 / 3;
+        var sinif = "yay" + (k.r === "hoca" ? " h" : ""), one = false;
+        if (sec) {
+          if (a in hat.ust && (b === sec || b in hat.ust)) { sinif += " ust"; one = true; }
+          else if (b in hat.alt && (a === sec || a in hat.alt)) { sinif += " alt"; one = true; }
+          if (one && (a === sec || b === sec)) sinif += " dog";
+        }
+        var p = '<path class="' + sinif + '" d="M' + x0 + " " + y1 + " C" + c.toFixed(1) + " " + y1 + " " + c.toFixed(1) + " " + y2 + " " + x0 + " " + y2 + '"/>';
+        if (one) vurgu += p; else normal += p;
+      });
+    });
+    var noktalar = "";
+    Object.keys(poz).forEach(function (id) {
+      var ic = id === sec || id in hat.ust || id in hat.alt;
+      noktalar += '<circle cx="' + x0 + '" cy="' + poz[id] + '" r="' + (id === sec ? 6 : 4) + '"' + (ic ? ' class="in' + (id === sec ? " sec" : "") + '"' : "") + "/>";
+    });
+    svg.setAttribute("height", H);
+    svg.setAttribute("viewBox", "0 0 " + G + " " + H);
+    svg.style.height = H + "px";
+    svg.innerHTML = normal + vurgu + noktalar;
+  }
+  function soyGoster(id) {
+    document.body.classList.add("soy-modu");
+    if (!soy.kok || !document.body.contains(soy.kok)) soyCiz();
+    soySec(id, !!id);
+  }
+
   // ---------- Yönlendirme ----------
   function goster() {
     var h = decodeURIComponent(location.hash.replace(/^#/, ""));
+    var soyModu = h === "soy" || h.indexOf("soy-") === 0;
+    $("v-soy").setAttribute("aria-current", soyModu ? "page" : "false");
+    $("v-atlas").setAttribute("aria-current", soyModu ? "false" : "page");
+    if (soyModu) { durum.secili = null; soyGoster(h.slice(4) || null); return; }
+    document.body.classList.remove("soy-modu");
+    if (soy.ro) { soy.ro.disconnect(); soy.ro = null; }
+    soy.kok = null;
     var id = h.indexOf("e-") === 0 ? h.slice(2) : null;
     if (id && V[id]) { durum.secili = id; detayCiz(id); }
     else if (durum.q.trim() && durum._son && durum._son.liste.length) {
@@ -548,8 +839,17 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
   });
   $("era").addEventListener("change", function (e) { durum.e = e.target.value; listeyiCiz(); if (!location.hash) goster(); });
   $("home").addEventListener("click", function () { aramaYap(""); });
+  $("v-atlas").addEventListener("click", function (e) {
+    e.preventDefault();
+    if (location.hash) history.pushState(null, "", location.pathname + location.search);
+    goster();
+  });
   $("home").addEventListener("keydown", function (e) { if (e.key === "Enter") aramaYap(""); });
   document.addEventListener("click", function (e) {
+    var git = e.target.closest("[data-sk-git]");
+    if (git) { e.preventDefault(); soySec(git.getAttribute("data-sk-git"), true); return; }
+    var kart = e.target.closest("[data-sk]");
+    if (kart && !e.target.closest("[data-id]")) { soySec(kart.getAttribute("data-sk"), false); return; }
     var b = e.target.closest("[data-id]");
     if (b) { e.preventDefault(); ac(b.getAttribute("data-id")); return; }
     var q = e.target.closest("[data-q]");
@@ -560,6 +860,7 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
     if (e.key === "/" && document.activeElement !== $("q")) { e.preventDefault(); $("q").focus(); }
   });
   window.addEventListener("hashchange", goster);
+  window.addEventListener("popstate", goster);
 
   fetch("veri.json").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (veri) {
     hazirla(veri); listeyiCiz(); goster();
