@@ -4,8 +4,10 @@ const fs = require("fs");
 const path = require("path");
 
 const soy = require("./veri-soy.js");
-const filozoflar = require("./veri-filozoflar.js").map(x => ({ ...x, ...(soy[x.id] || {}), t: "f" }));
-const akimlar = require("./veri-akimlar.js").map(x => ({ ...x, t: "a" }));
+const detayF = require("./veri-detay-filozoflar.js");
+const detayA = require("./veri-detay-akimlar.js");
+const filozoflar = require("./veri-filozoflar.js").map(x => ({ ...x, ...(soy[x.id] || {}), ...(detayF[x.id] || {}), t: "f" }));
+const akimlar = require("./veri-akimlar.js").map(x => ({ ...x, ...(detayA[x.id] || {}), t: "a" }));
 const kavramlar = require("./veri-kavramlar.js").map(x => ({ ...x, t: "k" }));
 const baglarMetni = require("./veri-baglar.js");
 
@@ -33,6 +35,12 @@ for (const f of filozoflar) {
   if (!f.yn) hatalar.push(`Yenilik (yn) eksik: ${f.id}`);
   const n = f.o ? cumleSay(f.o) : 0;
   if (n < 1 || n > 3) hatalar.push(`Temel düşünce (o) 1-3 cümle olmalı, ${n} cümle: ${f.id}`);
+}
+
+// Ayrıntı bölümleri: her filozof ve akımda hb (hayatı/doğuşu), em (etkisi), ek (eleştiriler).
+for (const [ad, detay, liste] of [["veri-detay-filozoflar.js", detayF, filozoflar], ["veri-detay-akimlar.js", detayA, akimlar]]) {
+  for (const id of Object.keys(detay)) if (!liste.some(v => v.id === id)) hatalar.push(`${ad} bilinmeyen kayıt: ${id}`);
+  for (const v of liste) for (const alan of ["hb", "em", "ek"]) if (!v[alan]) hatalar.push(`${ad} eksik alan ${alan}: ${v.id}`);
 }
 
 const baglar = [];
