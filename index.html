@@ -167,6 +167,10 @@ svg.graph .edge { fill: none; }
 .soy-modu .layout { grid-template-columns: minmax(0, 1fr); }
 .soy-modu .side { display: none; }
 
+/* Ayrıntı sayfasında uzun bölümler */
+.derin { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 28px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+@media (max-width: 1000px) { .derin { grid-template-columns: minmax(0, 1fr); } }
+.derin p { margin: 0; line-height: 1.6; max-width: 68ch; }
 /* Ayrıntı sayfasında temel düşünce */
 .core { margin-top: 18px; padding: 14px 16px; border-left: 3px solid var(--filozof); background: var(--bg); border-radius: 0 10px 10px 0; max-width: 72ch; }
 .core h3 { margin: 0 0 4px; }
@@ -272,13 +276,14 @@ svg.graph .edge { fill: none; }
 .dg:focus-visible rect { stroke: var(--filozof); stroke-width: 2.5; }
 .ag-ad { font-family: var(--f-display); font-weight: 600; font-size: 15px; fill: var(--ink); }
 .ag-alt { font-family: var(--f-mono); font-size: 10.5px; fill: var(--muted); }
+.ag-yer { font-family: var(--f-body); font-size: 11.5px; fill: var(--muted); }
 .agac-svg.odak .dg { opacity: .3; }
 .agac-svg.odak .dg.in { opacity: 1; }
 .agac-svg.yalniz .dg:not(.in) { opacity: .08; pointer-events: none; }
 .dg.ust rect { stroke: var(--akim); stroke-width: 2.2; }
 .dg.alt rect { stroke: var(--kavram); stroke-width: 2.2; }
 .dg.sec rect { fill: var(--filozof); stroke: var(--filozof); }
-.dg.sec .ag-ad, .dg.sec .ag-alt { fill: var(--surface); }
+.dg.sec .ag-ad, .dg.sec .ag-alt, .dg.sec .ag-yer { fill: var(--surface); }
 .agac-panel {
   position: fixed; z-index: 5; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   width: min(440px, calc(100vw - 32px)); max-height: min(60vh, 560px); overflow-y: auto;
@@ -403,7 +408,7 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
   }
   function ilkCumle(s) { var m = s.match(/^.*?[.!?](\s|$)/); return m ? m[0].trim() : s; }
   function eslesenCumle(v, terimler) {
-    var parcalar = [v.s].concat(v.i || []);
+    var parcalar = [v.s].concat(v.i || [], v.o ? [v.o] : [], [v.hb, v.em, v.ek].filter(Boolean));
     var cumleler = [];
     parcalar.forEach(function (p) { (p.match(/[^.!?]+[.!?]?/g) || [p]).forEach(function (c) { cumleler.push(c.trim()); }); });
     for (var i = 0; i < cumleler.length; i++) {
@@ -425,6 +430,7 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
       v._k = (v.k || []).map(norm);
       v._w = norm((v.w || []).join(" | "));
       v._i = norm((v.i || []).concat(v.o ? [v.o] : [], v.yn ? [v.yn] : []).join(" | "));
+      v._d = norm([v.hb, v.em, v.ek].filter(Boolean).join(" | "));
       v._s = norm(v.s);
       LISTE.push(v);
     });
@@ -452,6 +458,7 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
       if (!p && v._w.indexOf(t) !== -1) p = 15;
       if (!p && v._i.indexOf(t) !== -1) p = 14;
       if (!p && v._s.indexOf(t) !== -1) p = 12;
+      if (!p && v._d && v._d.indexOf(t) !== -1) p = 6;
       if (!p) return 0;
       toplam += p;
     }
@@ -600,6 +607,10 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
       (v.o ? '<div class="core"><h3 class="sec">Temel düşünce</h3><p>' + hl(v.o) + "</p>" +
         (v.yn ? '<p class="yeni"><b>Getirdiği yenilik:</b> ' + hl(v.yn) + "</p>" : "") +
         '<a href="#soy-' + id + '">Soy ağacında gör: kimden etkilendi, kimi etkiledi →</a></div>' : "") +
+      (v.hb ? '<div class="derin">' +
+        '<section><h3 class="sec">' + (v.t === "f" ? "Hayatı ve dönemi" : "Doğuşu ve tarihsel bağlamı") + "</h3><p>" + hl(v.hb) + "</p></section>" +
+        '<section><h3 class="sec">Etkisi ve mirası</h3><p>' + hl(v.em) + "</p></section>" +
+        '<section><h3 class="sec">Eleştiriler ve itirazlar</h3><p>' + hl(v.ek) + "</p></section></div>" : "") +
       '<div class="cols"><section><h3 class="sec">' + (v.t === "k" ? "Ana hatlar" : "Ana fikirler") + '</h3><ul class="ideas">' + (v.i || []).map(function (x) { return "<li>" + hl(x) + "</li>"; }).join("") + "</ul>" +
       (v.w && v.w.length ? '<h3 class="sec" style="margin-top:22px">Başlıca eserler</h3><ul class="works">' + v.w.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "") +
       (v.k && v.k.length ? '<h3 class="sec" style="margin-top:22px">Anahtar kelimeler</h3><div class="filters">' + v.k.map(function (x) { return '<button class="chip" data-q="' + esc(x) + '">' + esc(x) + "</button>"; }).join("") + "</div>" : "") +
@@ -690,7 +701,7 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
       (v.o ? '<p class="sk-oz">' + esc(v.o) + "</p>" : "") +
       (sonra.length ? '<div class="sk-satir"><span class="sk-et">Etkiledikleri</span><span class="sk-cips">' + soyCips(sonra) + "</span></div>" : "") +
       (elestiri.length ? '<div class="sk-satir"><span class="sk-et">Eleştirdiği</span><span class="sk-cips">' + soyCips(elestiri, "c") + "</span></div>" : "") +
-      '<button class="sk-detay" data-id="' + v.id + '">Ayrıntılı özet ve bağ haritası →</button>' +
+      '<button class="sk-detay" data-id="' + v.id + '">Detaylı bilgi: hayatı, etkisi, eleştiriler →</button>' +
       "</li>";
   }
 
@@ -852,7 +863,7 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
   // ---------- Görsel ağaç (diyagram) ----------
   // Filozoflar zaman sırasıyla satırlara (en çok 5 kişi, en fazla 120 yıllık aralık) yerleşir.
   // Her düğüm, öncüllerinin yatay ortalamasına yakın konur; böylece etki çizgileri olabildiğince dikey akar.
-  var AG = { NW: 170, NH: 50, GX: 16, RH: 104, LX: 76, MAX: 5 };
+  var AG = { NW: 170, NH: 64, GX: 16, RH: 118, LX: 76, MAX: 5 };
   AG.W = AG.LX + AG.MAX * (AG.NW + AG.GX) + AG.GX;
   function agacDuzen() {
     var fs = soy.fs.filter(function (v) { return !soy.donem || v.e === soy.donem; });
@@ -891,7 +902,8 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
       s += '<g class="dg" data-ag="' + id + '" tabindex="0" role="button" aria-label="' + esc(v.n + ", " + yilYaz(v.y)) + '" transform="translate(' + x.toFixed(1) + " " + p.y + ')">' +
         '<rect width="' + AG.NW + '" height="' + AG.NH + '" rx="10"/>' +
         '<text class="ag-ad" x="12" y="21">' + esc(kisalt(v.n, 21)) + "</text>" +
-        '<text class="ag-alt" x="12" y="39">' + esc(kisalt((v.d || yilYaz(v.y)).replace(/\s*\(.*\)$/, ""), 26)) + "</text></g>";
+        '<text class="ag-alt" x="12" y="38">' + esc(kisalt((v.d || yilYaz(v.y)).replace(/\s*\(.*\)$/, ""), 26)) + "</text>" +
+        '<text class="ag-yer" x="12" y="54">' + esc(kisalt(v.r || "", 25)) + "</text></g>";
     });
     s += "</g></svg>";
     kap.innerHTML = s;
@@ -952,7 +964,7 @@ footer { margin-top: 28px; color: var(--muted); font-size: .8rem; }
       (sonra.length ? '<div class="sk-satir"><span class="sk-et">Etkiledikleri</span><span class="sk-cips">' + soyCips(sonra) + "</span></div>" : "") +
       '<p class="ap-say"><span class="ust">' + once.length + " doğrudan öncül</span>" + (nu > once.length ? " (" + kus + nu + ")" : "") +
         ' · <span class="alt">' + sonra.length + " doğrudan ardıl</span>" + (na > sonra.length ? " (" + kus + na + ")" : "") + "</p>" +
-      '<button class="sk-detay" data-id="' + id + '">Ayrıntılı özet ve bağ haritası →</button></div>';
+      '<button class="sk-detay" data-id="' + id + '">Detaylı bilgi: hayatı, etkisi, eleştiriler →</button></div>';
     p.hidden = false;
   }
   function agacOlcek(yeni) {
