@@ -1,6 +1,6 @@
 // Sophidex servis çalışanı: uygulamayı ve veriyi önbelleğe alıp çevrimdışı açar.
 // Veri ya da arayüz değiştiğinde SURUM'u artırın; eski önbellek silinir.
-const SURUM = "sophidex-v2";
+const SURUM = "sophidex-v3";
 const TEMEL = [
   "./",
   "index.html",
